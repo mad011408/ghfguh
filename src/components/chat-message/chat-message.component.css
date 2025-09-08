@@ -1,0 +1,7 @@
+
+/* Basic styling for code blocks to make them look good without a full syntax highlighter */
+pre code {
+  color: #d1d5db; /* text-gray-300 */
+  display: block;
+  white-space: pre;
+}

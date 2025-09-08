@@ -1,0 +1,5 @@
+{
+  "name": "Gemini Advanced Code Assistant",
+  "description": "An advanced AI chatbot interface designed for generating real, runnable, production-grade code. Features comprehensive controls for prompt enhancement and visualizes the entire code generation and validation process.",
+  "requestFramePermissions": []
+}

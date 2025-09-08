@@ -1,0 +1,85 @@
+<div class="bg-gray-900/80 backdrop-blur-sm p-6 space-y-8 h-full overflow-y-auto">
+  <div class="flex items-center space-x-3">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+    <h2 class="text-2xl font-bold text-white">Generation Controls</h2>
+  </div>
+
+  <!-- System Prompt -->
+  <div>
+    <label for="systemPrompt" class="block text-sm font-medium text-gray-300">System Prompt</label>
+    <textarea 
+      id="systemPrompt" 
+      name="systemPrompt" 
+      rows="6" 
+      class="mt-1 block w-full pl-3 py-2 bg-gray-800 border-gray-600 rounded-md text-white focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm resize-y"
+      [value]="config().systemPrompt" 
+      (input)="onInputChange('systemPrompt', $event)"
+      placeholder="e.g., You are a helpful assistant..."
+    ></textarea>
+  </div>
+
+  <!-- Model Selection -->
+  <div>
+    <label for="model" class="block text-sm font-medium text-gray-300">AI Model</label>
+    <select id="model" name="model" [value]="config().model" (change)="onSelectChange('model', $event)" class="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-gray-800 border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md text-white">
+      <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+      <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+      <option value="gemini-live-2.5-flash-preview">Gemini Live 2.5 Flash</option>
+    </select>
+  </div>
+  
+  <!-- Strictness Slider -->
+  <div>
+    <label for="strictness" class="block text-sm font-medium text-gray-300">Strictness</label>
+    <div class="flex items-center space-x-4 mt-1">
+      <input type="range" id="strictness" name="strictness" min="0" max="10" [value]="config().strictness" (input)="onSliderChange('strictness', $event)" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+      <span class="font-mono text-indigo-400 w-8 text-center">{{ config().strictness }}</span>
+    </div>
+  </div>
+  
+  <!-- Runtime Budget -->
+  <div>
+    <label for="runtimeBudget" class="block text-sm font-medium text-gray-300">Runtime Budget (sec)</label>
+    <input type="number" id="runtimeBudget" name="runtimeBudget" min="10" max="800" [value]="config().runtimeBudget" (input)="onInputChange('runtimeBudget', $event)" class="mt-1 block w-full pl-3 py-2 bg-gray-800 border-gray-600 rounded-md text-white focus:ring-indigo-500 focus:border-indigo-500">
+  </div>
+  
+  <!-- Testing Depth -->
+  <div>
+    <label for="testingDepth" class="block text-sm font-medium text-gray-300">Testing Depth</label>
+    <select id="testingDepth" name="testingDepth" [value]="config().testingDepth" (change)="onSelectChange('testingDepth', $event)" class="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-gray-800 border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md text-white">
+      <option>smoke</option>
+      <option>unit</option>
+      <option>integration</option>
+    </select>
+  </div>
+  
+  <!-- Security Level -->
+  <div>
+    <label for="securityLevel" class="block text-sm font-medium text-gray-300">Security Level</label>
+    <select id="securityLevel" name="securityLevel" [value]="config().securityLevel" (change)="onSelectChange('securityLevel', $event)" class="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-gray-800 border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md text-white">
+      <option>none</option>
+      <option>basic</option>
+      <option>hardened</option>
+    </select>
+  </div>
+  
+  <!-- Style Guide -->
+  <div>
+    <label for="styleGuide" class="block text-sm font-medium text-gray-300">Style Guide</label>
+    <select id="styleGuide" name="styleGuide" [value]="config().styleGuide" (change)="onSelectChange('styleGuide', $event)" class="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-gray-800 border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md text-white">
+      <option>PEP8</option>
+      <option>Google</option>
+      <option>Airbnb</option>
+      <option>StandardJS</option>
+    </select>
+  </div>
+
+  <!-- Language -->
+  <div>
+    <label for="language" class="block text-sm font-medium text-gray-300">Language / Runtime</label>
+    <input type="text" id="language" name="language" [value]="config().language" (input)="onInputChange('language', $event)" placeholder="e.g., python:3.11" class="mt-1 block w-full pl-3 py-2 bg-gray-800 border-gray-600 rounded-md text-white focus:ring-indigo-500 focus:border-indigo-500">
+  </div>
+</div>
